@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.example.shipping.dao.ShipperDao">
+    <select id="getShipperById" resultType="com.example.shipping.entity.Shipper">
+        select * from shipping.shipper where shipper_id = #{shipperId}
+    </select>
+
+    <insert id="createShipper" parameterType="com.example.shipping.entity.Shipper">
+        insert into shipping.shipper (shipper_id,shipper_name,email,password,shipper_address)
+            values (#{shipperId}, #{shipperName}, #{email},#{password},#{shipperAddress})
+    </insert>
+</mapper>
