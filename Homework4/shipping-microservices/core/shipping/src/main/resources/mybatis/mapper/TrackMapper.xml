@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.example.shipping.dao.TrackDao">
+    <select id="getTrackById" resultType="com.example.shipping.entity.Track" parameterType="Integer">
+        select * from shipping.track where shipper_id = #{shipperId}
+                                       and shipment_id = #{shipmentId}
+    </select>
+    <insert id="addTrack" parameterType="com.example.shipping.entity.Track">
+        insert into shipping.track (shipper_id,shipment_id,ship_date,delivery_date,status)
+            values (#{shipperId},#{shipmentId},#{shipDate},#{deliveryDate},#{status})
+    </insert>
+    <delete id="deleteTrack" parameterType="Integer">
+        delete from shipping.track where shipper_id = #{shipperId}
+                                    and shipment_id = #{shipmentId}
+    </delete>
+    <update id="modifyTrackStatus">
+        update shipping.track set status=#{status} where shipper_id = #{shipperId}
+                                                    and shipment_id = #{shipmentId}
+    </update>
+    <select id="getTrackInfoById" resultType="map">
+        select * from shipping.trackinfo where shipment_id = #{shipmentId}
+    </select>
+    <insert id="addTrackInfo">
+        insert into shipping.trackinfo (shipment_id,tracking_datetime,location,status)
+            values (#{shipmentId},#{trackingDatetime},#{location},#{status})
+    </insert>
+</mapper>

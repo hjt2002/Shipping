@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.example.shipping.dao.OrderDao">
+    <select id="getOrderById" resultType="com.example.shipping.entity.Order">
+        select * from shipping.order where shipment_id = #{shipmentId}
+    </select>
+    <insert id="createOrder" parameterType="com.example.shipping.entity.Order">
+        insert into shipping.order (shipment_id,consignee_name,consignee_address,description,weigth)
+            values (#{shipmentId},#{consigneeName},#{consigneeAddress},#{description},#{weigth})
+    </insert>
+    <delete id="deleteOrder" parameterType="com.example.shipping.entity.Order">
+        delete from shipping.order where shipment_id = #{shipmentId}
+    </delete>
+
+    <select id="getBillings" resultType="map">
+        select * from shipping.billings where shipment_id = #{shipmentId}
+    </select>
+    <insert id="createBillings">
+        insert into shipping.billings (shipment_id,amount,duedate,status)
+            values (#{shipmentId},#{amount},#{duedate},#{status})
+    </insert>
+    <select id="getShipmentId" resultType="Integer">
+        select max(shipment_id) from shipping.order
+    </select>
+</mapper>
